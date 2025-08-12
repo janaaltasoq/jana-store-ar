@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>مول جنة التسوق</title>
+  <meta name="description" content="مول جنة التسوق - بغداد، الدورة، شارع جمعية خير الله. أقسام: الغذائية، المنظفات، الكوزمتك، المنزلية والمفروشات، العروض.">
+  <style>
+    :root{--green:#3cab4b;--gold:#d6b324;--dark:#261f1c;--text:#111;--muted:#6a6a6a;--card:#f9f9f9}
+    *{box-sizing:border-box}
+    html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Naskh Arabic',Tahoma;background:#fff;color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    .topbar{background:#f3f3f3;padding:8px 12px;text-align:center;font-size:14px}
+    header{background:var(--dark);color:#fff;position:sticky;top:0;z-index:10}
+    .nav{max-width:1100px;margin:0 auto;display:flex;gap:10px;align-items:center;padding:10px 16px;flex-wrap:wrap}
+    .brand{font-weight:800;letter-spacing:.5px}
+    .nav a{padding:6px 10px;border-radius:999px;border:1px solid #3a3a3a}
+    .nav a:hover{background:#332a26}
+    .hero{position:relative}
+    .hero img{width:100%;height:44vh;object-fit:cover;display:block;opacity:.8;filter:saturate(.9)}
+    .hero .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:12px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:12px;background:var(--green);color:#fff;font-weight:700}
+    .section{padding:28px 0}
+    .container{max-width:1100px;margin:0 auto;padding:0 16px}
+    h2{margin:0 0 14px;border-right:6px solid var(--gold);padding-right:10px}
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .card{background:var(--card);border:1px solid #ececec;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .card img{width:100%;height:200px;object-fit:cover}
+    .card .body{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .price{font-weight:700}
+    .muted{color:var(--muted)}
+    .badge{display:inline-block;background:var(--gold);color:#000;padding:2px 8px;border-radius:8px;font-size:12px;margin-right:6px}
+    footer{padding:24px 0;text-align:center;color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="topbar">توصيل داخل بغداد • للاستفسار: <a href="tel:07735767673">07735767673</a></div>
+  <header>
+    <nav class="nav">
+      <div class="brand">مول جنة التسوق</div>
+      <a href="#offers">العروض</a>
+      <a href="#food">الغذائية</a>
+      <a href="#clean">المنظفات</a>
+      <a href="#cosmetic">الكوزمتك</a>
+      <a href="#home">المنزلية والمفروشات</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <img src="images/hero.jpg" alt="مول جنة التسوق - بانر">
+    <div class="content">
+      <h1>تسوّق بألوان جانا مول</h1>
+      <p>الأسعار بالدينار العراقي (د.ع) • دفع عند الاستلام</p>
+      <a class="btn" href="https://wa.me/9647735767673?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D9%85%D9%88%D9%84%20%D8%AC%D9%86%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B3%D9%88%D9%82">اطلب الآن عبر واتساب</a>
+      <div style="margin-top:8px">العنوان: بغداد • الدورة • شارع جمعية خير الله</div>
+    </div>
+  </section>
+  <main class="container">
+    <section id="offers" class="section">
+      <h2>العروض الخاصة <span class="badge">خصم</span></h2>
+      <div class="grid" data-category="العروض"></div>
+    </section>
+    <section id="food" class="section">
+      <h2>قسم الغذائية</h2>
+      <div class="grid" data-category="الغذائية"></div>
+    </section>
+    <section id="clean" class="section">
+      <h2>قسم المنظفات</h2>
+      <div class="grid" data-category="المنظفات"></div>
+    </section>
+    <section id="cosmetic" class="section">
+      <h2>قسم الكوزمتك</h2>
+      <div class="grid" data-category="الكوزمتك"></div>
+    </section>
+    <section id="home" class="section">
+      <h2>المنزلية والمفروشات</h2>
+      <div class="grid" data-category="المنزلية والمفروشات"></div>
+    </section>
+  </main>
+  <footer class="container">© مول جنة التسوق • بغداد • الهاتف: <a href="tel:07735767673">07735767673</a></footer>
+  
+
+<script>
+  const wa="https://wa.me/9647735767673";
+  const fmtIQD=n=>n==null?"اسأل عن السعر":`${new Intl.NumberFormat('ar-IQ').format(n)} د.ع`;
+  fetch('products.json').then(r=>r.json()).then(data=>{
+    const items = Array.isArray(data) ? data : (data.products || []);
+    document.querySelectorAll('.grid[data-category]').forEach(section=>{
+      const cat = section.getAttribute('data-category');
+      items.filter(p=>p.category===cat).forEach(p=>{
+        const el=document.createElement('article');
+        el.className='card';
+        el.innerHTML=`
+          <img src="${p.img}" alt="${p.name}">
+          <div class="body">
+            <div><span class="badge">${cat}</span><h3 style="margin:6px 0 0">${p.name}</h3></div>
+            <div class="muted">${p.desc||''}</div>
+            <div class="price ${p.priceIQD==null?'muted':''}">${fmtIQD(p.priceIQD)}</div>
+            <a class="btn" href="${wa}?text=${encodeURIComponent(p.priceIQD==null?`أريد معلومات عن ${p.name} / قسم ${cat}`:`أريد طلب ${p.name} - ${p.priceIQD} د.ع / قسم ${cat}`)}">${p.priceIQD==null?'اسأل عبر واتساب':'اطلب عبر واتساب'}</a>
+          </div>`;
+        section.appendChild(el);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
